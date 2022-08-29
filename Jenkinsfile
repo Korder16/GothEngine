@@ -15,8 +15,17 @@ pipeline {
 
         stage('Build') {
             steps {
-                cmakeBuild buildType: 'Release', cleanBuild: true, 
-                                       installation: 'InSearchPath'
+                cmakeBuild buildType: 'Release', 
+                    cleanBuild: true, 
+                    buildDir: 'build',
+                    installation: 'InSearchPath'
+            }
+        }
+
+        stage('Tests') {
+            steps {
+                sh 'tree'
+                sh './build/math/math_tests'
             }
         }
     }
