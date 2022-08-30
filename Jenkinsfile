@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('CMake') {
             steps {
                 cmakeBuild buildType: 'Release', 
                     cleanBuild: true, 
@@ -22,10 +22,20 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                sh 'pwd'
+                sh 'ls build'
+                sh 'cd build/'
+                sh 'pwd'
+                sh 'make'
+            }
+        }
+
         stage('Tests') {
             steps {
                 sh 'tree'
-                sh './build/math/math_tests'
+                sh './build/bin/math_tests'
             }
         }
     }
